@@ -1,0 +1,57 @@
+:root[data-theme="light"] {
+    --background-color: #ffffff;
+    --text-color: #333333;
+    --header-bg: #f0f0f0;
+}
+
+:root[data-theme="dark"] {
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --header-bg: #2d2d2d;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: var(--header-bg);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.light-icon, .dark-icon {
+    display: none;
+}
+
+[data-theme="light"] .light-icon {
+    display: inline;
+}
+
+[data-theme="dark"] .dark-icon {
+    display: inline;
+}
