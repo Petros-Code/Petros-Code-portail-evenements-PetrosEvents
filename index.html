@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="fr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +7,44 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- En-tête avec le titre et le bouton de thème -->
     <header>
         <h1>Petros-Events</h1>
-        <button id="theme-toggle" class="theme-toggle">
-            <span class="light-icon">☀️</span>
-            <span class="dark-icon">🌙</span>
-        </button>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Changer le thème">☀️</button>
     </header>
+
+    <!-- Section principale avec l'introduction -->
+    <main>
+        <h2>Bienvenue sur Petros-Events</h2>
+        <p>Petros-Events est un site web qui référence tous nos événements et vous permet de les ajouter à votre calendrier.</p>
+    </main>
+
+    <!-- Section des événements disponibles -->
+    <section class="events-section" aria-label="Liste des événements">
+        <h2>Nos Événements</h2>
+        <div id="events-container" class="events-grid">
+            <!-- Les événements seront injectés dynamiquement ici -->
+        </div>
+    </section>
+
+    <!-- Section des événements favoris -->
+    <section class="favorites-section" aria-label="Mon planning">
+        <h2>Mon Planning</h2>
+        <div id="favorites-container" class="events-grid">
+            <!-- Les événements favoris seront injectés dynamiquement ici -->
+        </div>
+    </section>
+
+    <!-- Modale pour afficher les détails d'un événement -->
+    <div id="event-modal" class="modal" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Fermer">&times;</button>
+            <div id="modal-content">
+                <!-- Le contenu de la modale sera injecté dynamiquement ici -->
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

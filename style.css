@@ -1,15 +1,28 @@
+/* Variables pour le thème clair */
 :root[data-theme="light"] {
-    --background-color: #ffffff;
-    --text-color: #333333;
-    --header-bg: #f0f0f0;
+    --background-color: #f7fff7;
+    --text-color: #292f36;
+    --header-bg: #4ecdc4;
+    --primary-color: #4ecdc4;
+    --secondary-color: #F5A623;
+    --tertiary-color: #ffe66d;
+    --card-bg: #ffffff;
+    --hover-color: rgba(78, 205, 196, 0.1);
 }
 
+/* Variables pour le thème sombre */
 :root[data-theme="dark"] {
-    --background-color: #1a1a1a;
-    --text-color: #ffffff;
-    --header-bg: #2d2d2d;
+    --background-color: #292f36;
+    --text-color: #f7fff7;
+    --header-bg: #1a1f24;
+    --primary-color: #4ecdc4;
+    --secondary-color: #F5A623;
+    --tertiary-color: #ffe66d;
+    --card-bg: #1f252b;
+    --hover-color: rgba(78, 205, 196, 0.2);
 }
 
+/* Styles de base */
 body {
     background-color: var(--background-color);
     color: var(--text-color);
@@ -18,14 +31,22 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* En-tête */
 header {
     background-color: var(--header-bg);
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+header h1 {
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Bouton de thème */
 .theme-toggle {
     background: none;
     border: none;
@@ -33,25 +54,257 @@ header {
     padding: 0.5rem;
     font-size: 1.2rem;
     border-radius: 50%;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    color: var(--text-color);
 }
 
 .theme-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--hover-color);
+    transform: scale(1.1);
 }
 
-[data-theme="dark"] .theme-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+[data-theme="dark"] .theme-toggle {
+    content: "🌙";
 }
 
-.light-icon, .dark-icon {
+[data-theme="light"] .theme-toggle {
+    content: "☀️";
+}
+
+/* Sections principales */
+.events-section, .favorites-section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.events-section h2, .favorites-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+    font-size: 2rem;
+}
+
+/* Grille d'événements */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+/* Carte d'événement */
+.event-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.event-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.event-content {
+    padding: 1.5rem;
+}
+
+/* En-tête de la carte */
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.event-title-container {
+    flex: 1;
+}
+
+.event-title {
+    font-size: 1.25rem;
+    margin: 0;
+    color: var(--text-color);
+}
+
+.event-date {
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.event-description {
+    color: var(--text-color);
+    opacity: 0.9;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+/* Boutons d'action */
+.event-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.event-link, .details-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.event-link:hover, .details-button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Bouton favori */
+.favorite-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+    opacity: 0.5;
+}
+
+.favorite-button:hover {
+    transform: scale(1.1);
+}
+
+.favorite-button.active {
+    opacity: 1;
+    color: var(--tertiary-color);
+    text-shadow: 0 0 5px rgba(255, 230, 109, 0.5);
+}
+
+.favorite-button.active:hover {
+    color: var(--secondary-color);
+    text-shadow: 0 0 8px rgba(245, 166, 35, 0.7);
+}
+
+/* Modale */
+.modal {
     display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
 }
 
-[data-theme="light"] .light-icon {
-    display: inline;
+.modal-content {
+    position: relative;
+    background-color: var(--card-bg);
+    margin: 5% auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
-[data-theme="dark"] .dark-icon {
-    display: inline;
+.modal-title {
+    color: var(--text-color);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.modal-section {
+    margin-bottom: 2rem;
+}
+
+.modal-section h3 {
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.modal-section p {
+    color: var(--text-color);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.modal-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.modal-link:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.close-modal {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+}
+
+.close-modal:hover {
+    color: var(--secondary-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Personnalisation de la barre de défilement */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: var(--header-bg);
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
 }
