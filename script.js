@@ -17,13 +17,49 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * Gère les cookies
+ */
+const CookieManager = {
+    /**
+     * Définit un cookie
+     * @param {string} name - Nom du cookie
+     * @param {string} value - Valeur du cookie
+     * @param {number} days - Durée de validité en jours
+     */
+    setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = `expires=${date.toUTCString()}`;
+        document.cookie = `${name}=${value};${expires};path=/`;
+    },
+
+    /**
+     * Récupère la valeur d'un cookie
+     * @param {string} name - Nom du cookie
+     * @returns {string|null} Valeur du cookie ou null si non trouvé
+     */
+    getCookie(name) {
+        const cookieName = `${name}=`;
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.indexOf(cookieName) === 0) {
+                return cookie.substring(cookieName.length);
+            }
+        }
+        return null;
+    }
+};
+
+/**
  * Initialise le système de thème clair/sombre
  */
 function initializeTheme() {
     const themeToggle = document.getElementById('theme-toggle');
     const html = document.documentElement;
     
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    // Récupérer le thème depuis le cookie ou utiliser 'light' par défaut
+    const savedTheme = CookieManager.getCookie('theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
     themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
 
@@ -33,7 +69,9 @@ function initializeTheme() {
         
         html.setAttribute('data-theme', newTheme);
         themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
-        localStorage.setItem('theme', newTheme);
+        
+        // Sauvegarder le thème dans un cookie valable 1 an
+        CookieManager.setCookie('theme', newTheme, 365);
     });
 }
 
